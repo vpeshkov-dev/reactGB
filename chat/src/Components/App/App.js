@@ -40,19 +40,6 @@ function App() {
         setMessagesData([...messagesData, messageData])
     }
 
-    // const getAnswerBot = () => {
-    // const messegeByBot = {
-    //     messageText: 'autotext',
-    //     messageAuthor: 'R',
-    //     messageDate: `${new Date().getDate()}.0${
-    //         new Date().getMonth() + 1
-    //     }  ${new Date().getHours()}:${new Date().getMinutes()}`,
-    //     id: Date.now(),
-    // }
-
-    //     setMessagesData(() => [...messagesData, messegeByBot])
-    // }
-
     useEffect(() => {
         const oldMessagesData = getMessagesData()
         setMessagesData([...messagesData, ...oldMessagesData])
