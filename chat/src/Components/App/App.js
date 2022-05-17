@@ -40,26 +40,35 @@ function App() {
         setMessagesData([...messagesData, messageData])
     }
 
+    const sendMessageByBot = () => {
+        const messegeByBot = {
+            messageText: 'autotext',
+            messageAuthor: 'R',
+            messageDate: `${new Date().getDate()}.0${
+                new Date().getMonth() + 1
+            }  ${new Date().getHours()}:${new Date().getMinutes()}`,
+            id: Date.now(),
+        }
+
+        setMessagesData([...messagesData, messegeByBot])
+    }
+
     useEffect(() => {
         const oldMessagesData = getMessagesData()
         setMessagesData([...messagesData, ...oldMessagesData])
     }, [])
 
     useEffect(() => {
+        let sendMessageTimeOut = null
         if (messagesData.length) {
             const { messageAuthor } = messagesData[messagesData.length - 1]
             if (messageAuthor !== 'R') {
-                const messegeByBot = {
-                    messageText: 'autotext',
-                    messageAuthor: 'R',
-                    messageDate: `${new Date().getDate()}.0${
-                        new Date().getMonth() + 1
-                    }  ${new Date().getHours()}:${new Date().getMinutes()}`,
-                    id: Date.now(),
-                }
-
-                setMessagesData([...messagesData, messegeByBot])
+                sendMessageTimeOut = setTimeout(sendMessageByBot, 1500)
             }
+        }
+
+        return () => {
+            clearTimeout(sendMessageTimeOut)
         }
     }, [messagesData])
 

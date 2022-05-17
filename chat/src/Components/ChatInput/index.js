@@ -17,6 +17,8 @@ function ChatInput({ getMessageData }) {
             }  ${new Date().getHours()}:${new Date().getMinutes()}`,
             id: Date.now(),
         })
+
+        setChatInputValue('')
     }
 
     return (
@@ -25,6 +27,7 @@ function ChatInput({ getMessageData }) {
                 className={styles.chatInput_text}
                 type="text"
                 placeholder="Сообщение..."
+                value={chatInputValue}
                 onInput={(e) => setChatInputValue(e.target.value)}
             />
             <button
