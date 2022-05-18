@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
-import MessageList from '../MessageList'
-import ChatInput from '../ChatInput'
+import MessageList from './MessageList'
+import ChatInput from './ChatInput'
 
 import styles from './app.module.scss'
 

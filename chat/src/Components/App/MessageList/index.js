@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Message from '../Message'
+import Message from './Message'
 import style from './MessagesList.module.scss'
 
 function MessageList({ messagesData }) {
