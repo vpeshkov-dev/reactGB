@@ -1,0 +1,12 @@
+.chatInput {
+    display: flex;
+    padding: 10px;
+    background-color: rgb(75, 75, 75);
+
+    &_text {
+        flex-grow: 1;
+    }
+    &_button {
+        margin-left: 5px;
+    }
+}
