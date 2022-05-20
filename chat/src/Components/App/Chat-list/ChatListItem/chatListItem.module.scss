@@ -1,0 +1,12 @@
+.chat_list_item {
+    padding: 10px 10px;
+    border-top: 1px solid #ccc;
+
+    &:first-child {
+        border-top: none;
+    }
+
+    &:hover {
+        background-color: #ccc;
+    }
+}

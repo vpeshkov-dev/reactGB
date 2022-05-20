@@ -3,7 +3,9 @@ import styles from './Message.module.scss'
 
 function Message({ messageText, messageAuthor, messageDate }) {
     const styleMessage =
-        messageAuthor !== 'R' ? styles.message : styles.message_bot
+        messageAuthor !== 'R'
+            ? styles.message
+            : `${styles.message} ${styles.message_bot}`
 
     return (
         <li className={styleMessage}>
