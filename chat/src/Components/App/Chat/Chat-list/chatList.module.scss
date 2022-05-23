@@ -1,0 +1,16 @@
+.chat_list {
+    width: 300px;
+    color: #fff;
+    font-size: 25px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(40, 40, 40);
+    border-right: 2px solid rgb(40, 40, 40);
+    max-height: 100vh;
+    flex-grow: 1;
+}
