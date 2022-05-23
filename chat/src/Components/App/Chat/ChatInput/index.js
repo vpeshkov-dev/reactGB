@@ -4,28 +4,31 @@ import { TextField, Button } from '@mui/material/'
 
 import styles from './chat-input.module.scss'
 
-function ChatInput({ getMessageData }) {
+function ChatInput({ addMessage }) {
     const [chatInputValue, setChatInputValue] = useState('')
     const inpputRef = useRef()
 
-    const sendMessageData = (e) => {
+    const sendMessage = (e) => {
         e.preventDefault()
-        getMessageData({
-            messageText: chatInputValue,
-            messageAuthor: 'Y',
-            messageDate: `${new Date().getDate()}.0${
-                new Date().getMonth() + 1
-            }  ${new Date().getHours()}:${new Date().getMinutes()}`,
-            id: Date.now(),
-        })
 
-        setChatInputValue('')
+        if (chatInputValue !== '') {
+            addMessage({
+                messageText: chatInputValue,
+                messageAuthor: 'Y',
+                messageDate: `${new Date().getDate()}.0${
+                    new Date().getMonth() + 1
+                }  ${new Date().getHours()}:${new Date().getMinutes()}`,
+                id: Date.now(),
+            })
+
+            setChatInputValue('')
+        }
     }
 
     useEffect(() => inpputRef.current.children[0].children[0].focus())
 
     return (
-        <form className={styles.chatInput} onSubmit={sendMessageData}>
+        <form className={styles.chatInput} onSubmit={(e) => sendMessage(e)}>
             <TextField
                 id="filled-basic"
                 variant="filled"
@@ -38,7 +41,7 @@ function ChatInput({ getMessageData }) {
 
             <Button
                 variant="outlined"
-                onClick={sendMessageData}
+                onClick={(e) => sendMessage(e)}
                 className={styles.chatInput_button}
                 disabled={chatInputValue ? null : true}
             >
@@ -49,11 +52,11 @@ function ChatInput({ getMessageData }) {
 }
 
 ChatInput.propTypes = {
-    getMessageData: PropTypes.func,
+    addMessage: PropTypes.func,
 }
 
 ChatInput.defaultProps = {
-    getMessageData: '',
+    addMessage: ' ',
 }
 
 export default ChatInput
