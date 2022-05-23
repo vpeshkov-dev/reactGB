@@ -1,0 +1,18 @@
+.messageList {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px 20px 10px;
+    gap: 35px;
+    margin: 0;
+    margin-top: auto;
+
+    &__wrapper {
+        overflow-y: scroll;
+        display: flex;
+        background-color: rgb(236, 233, 233);
+        display: flex;
+        flex-direction: column-reverse;
+        flex-grow: 1;
+    }
+}
