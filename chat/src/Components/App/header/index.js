@@ -20,6 +20,14 @@ function Header() {
             >
                 Chat page
             </NavLink>
+            <NavLink
+                className={(isActive) =>
+                    isActive ? styles.header_item : styles.active
+                }
+                to="profile/"
+            >
+                Profile
+            </NavLink>
         </header>
     )
 }
