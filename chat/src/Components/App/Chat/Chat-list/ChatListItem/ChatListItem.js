@@ -5,24 +5,20 @@ import ListItem from '@mui/material/ListItem'
 
 import style from './chatListItem.module.scss'
 
-function ChatListItem({ name, getActiveRoom }) {
+function ChatListItem({ name }) {
     return (
         <NavLink to={name}>
-            <ListItem className={style.chat_list_item} onClick={getActiveRoom}>
-                {name}
-            </ListItem>
+            <ListItem className={style.chat_list_item}>{name}</ListItem>
         </NavLink>
     )
 }
 
 ChatListItem.defaultProps = {
     name: '',
-    getActiveRoom: '',
 }
 
 ChatListItem.propTypes = {
     name: PropTypes.string,
-    getActiveRoom: PropTypes.func,
 }
 
 export default ChatListItem

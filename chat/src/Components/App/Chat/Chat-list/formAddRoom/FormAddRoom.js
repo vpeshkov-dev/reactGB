@@ -1,15 +1,20 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+import { nanoid } from 'nanoid'
 import styles from './formAddRoom.module.scss'
+import addChatRoom from '../../../../../store/chats-list/actions'
+import { createNewMessagesList } from '../../../../../store/messages/actions'
 
-function FormAddRoom({ addChatRoom }) {
+function FormAddRoom() {
     const [inputValue, setInputValue] = useState('')
+    const dispatch = useDispatch()
 
     const sendChatRoomName = (e) => {
         e.preventDefault()
 
         if (inputValue !== '') {
-            addChatRoom(inputValue)
+            dispatch(addChatRoom({ name: inputValue, id: nanoid() }))
+            dispatch(createNewMessagesList({ [inputValue]: [] }))
         }
 
         setInputValue('')
@@ -31,11 +36,4 @@ function FormAddRoom({ addChatRoom }) {
     )
 }
 
-FormAddRoom.defaultProps = {
-    addChatRoom: '',
-}
-
-FormAddRoom.propTypes = {
-    addChatRoom: PropTypes.func,
-}
 export default FormAddRoom

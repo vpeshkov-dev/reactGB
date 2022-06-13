@@ -2,11 +2,10 @@ import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ProfileForm from '../Components/App/profileForm/profileForm'
 import { toggleCheckbox } from '../store/profile/actions'
+import getProfile from '../store/profile/selectors'
 
 export default function ProfilePage() {
-    const { firstName, lastName, isChecked } = useSelector(
-        (state) => state.profile
-    )
+    const { firstName, lastName, isChecked } = useSelector(getProfile)
 
     const dispatch = useDispatch()
 

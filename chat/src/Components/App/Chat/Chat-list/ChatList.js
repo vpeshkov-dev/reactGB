@@ -1,39 +1,23 @@
 import List from '@mui/material/List'
-import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import ChatListItem from './ChatListItem/ChatListItem'
 import styles from './chatList.module.scss'
 import FormAddRoom from './formAddRoom/FormAddRoom'
+import getChatList from '../../../../store/chats-list/selectors'
 
-function ChatList({ chatRoomsData, getActiveRoom, addChatRoom }) {
+function ChatList() {
+    const chatRoomsData = useSelector(getChatList)
+
     return (
         <div className={styles.wrapper}>
             <List className={styles.chat_list}>
                 {chatRoomsData.map(({ name, id }) => (
-                    <ChatListItem
-                        key={id}
-                        name={name}
-                        getActiveRoom={() => getActiveRoom(name)}
-                    />
+                    <ChatListItem key={id} name={name} />
                 ))}
             </List>
-            <FormAddRoom
-                style={{ background: '#ccc' }}
-                addChatRoom={addChatRoom}
-            />
+            <FormAddRoom style={{ background: '#ccc' }} />
         </div>
     )
-}
-
-ChatList.defaultProps = {
-    chatRoomsData: [],
-    getActiveRoom: '',
-    addChatRoom: '',
-}
-
-ChatList.propTypes = {
-    chatRoomsData: PropTypes.instanceOf(Array),
-    getActiveRoom: PropTypes.func,
-    addChatRoom: PropTypes.func,
 }
 
 export default ChatList

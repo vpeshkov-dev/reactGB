@@ -1,34 +1,42 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { TextField, Button } from '@mui/material/'
-
+import { nanoid } from 'nanoid'
 import styles from './chat-input.module.scss'
+import { sendMessage } from '../../../../store/messages/actions'
+import getMessagesByID from '../../../../store/messages/selectors'
 
-function ChatInput({ addMessage }) {
+function ChatInput({ roomID }) {
     const [chatInputValue, setChatInputValue] = useState('')
     const inpputRef = useRef()
+    const messages = useSelector(getMessagesByID(roomID))
+    const dispatch = useDispatch()
 
-    const sendMessage = (e) => {
-        e.preventDefault()
+    const sendMessageForm = useCallback(
+        (e) => {
+            e.preventDefault()
 
-        if (chatInputValue !== '') {
-            addMessage({
-                messageText: chatInputValue,
-                messageAuthor: 'Y',
-                messageDate: `${new Date().getDate()}.0${
-                    new Date().getMonth() + 1
-                }  ${new Date().getHours()}:${new Date().getMinutes()}`,
-                id: Date.now(),
-            })
-
-            setChatInputValue('')
-        }
-    }
+            if (chatInputValue !== '') {
+                const message = {
+                    messageText: chatInputValue,
+                    messageAuthor: 'Y',
+                    messageDate: `${new Date().getDate()}.0${
+                        new Date().getMonth() + 1
+                    }  ${new Date().getHours()}:${new Date().getMinutes()}`,
+                    id: nanoid(),
+                }
+                dispatch(sendMessage({ [roomID]: [...messages, message] }))
+                setChatInputValue('')
+            }
+        },
+        [chatInputValue]
+    )
 
     useEffect(() => inpputRef.current.children[0].children[0].focus())
 
     return (
-        <form className={styles.chatInput} onSubmit={(e) => sendMessage(e)}>
+        <form className={styles.chatInput} onSubmit={(e) => sendMessageForm(e)}>
             <TextField
                 id="filled-basic"
                 variant="filled"
@@ -41,7 +49,8 @@ function ChatInput({ addMessage }) {
 
             <Button
                 variant="outlined"
-                onClick={(e) => sendMessage(e)}
+                type="submit"
+                onClick={(e) => sendMessageForm(e)}
                 className={styles.chatInput_button}
                 disabled={chatInputValue ? null : true}
             >
@@ -52,11 +61,10 @@ function ChatInput({ addMessage }) {
 }
 
 ChatInput.propTypes = {
-    addMessage: PropTypes.func,
+    roomID: PropTypes.string,
 }
-
 ChatInput.defaultProps = {
-    addMessage: ' ',
+    roomID: '',
 }
 
 export default ChatInput
