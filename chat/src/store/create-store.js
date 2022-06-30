@@ -1,9 +1,11 @@
-/* eslint-disable */
-
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import chatListReducer from './chats-list/reducer'
 import profileReducer from './profile/reducer'
 import messagesReduser from './messages/reducer'
+// import sendMessageThunk from './thunks'
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
     combineReducers({
@@ -11,7 +13,7 @@ const store = createStore(
         chatList: chatListReducer,
         messages: messagesReduser,
     }),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeEnhancers(applyMiddleware(thunk))
 )
 
 export default store

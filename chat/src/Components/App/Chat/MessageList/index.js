@@ -12,6 +12,7 @@ function MessageList() {
         (state) => state.messages[roomID] ?? [],
         shallowEqual
     )
+    // console.log(messages)
 
     return (
         <div>

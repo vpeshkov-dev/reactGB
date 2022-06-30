@@ -1,16 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { TextField, Button } from '@mui/material/'
-import { nanoid } from 'nanoid'
 import styles from './chat-input.module.scss'
-import { sendMessage } from '../../../../store/messages/actions'
-import getMessagesByID from '../../../../store/messages/selectors'
+import { sendMessageThunk } from '../../../../store/thunks'
 
 function ChatInput({ roomID }) {
     const [chatInputValue, setChatInputValue] = useState('')
     const inpputRef = useRef()
-    const messages = useSelector(getMessagesByID(roomID))
     const dispatch = useDispatch()
 
     const sendMessageForm = useCallback(
@@ -18,20 +15,14 @@ function ChatInput({ roomID }) {
             e.preventDefault()
 
             if (chatInputValue !== '') {
-                const message = {
-                    messageText: chatInputValue,
-                    messageAuthor: 'Y',
-                    messageDate: `${new Date().getDate()}.0${
-                        new Date().getMonth() + 1
-                    }  ${new Date().getHours()}:${new Date().getMinutes()}`,
-                    id: nanoid(),
-                }
-                dispatch(sendMessage({ [roomID]: [...messages, message] }))
+                dispatch(sendMessageThunk(roomID, chatInputValue))
                 setChatInputValue('')
             }
         },
-        [chatInputValue]
+        [roomID, chatInputValue]
     )
+
+    // const mes = useSelector((state) => state.messages)
 
     useEffect(() => inpputRef.current.children[0].children[0].focus())
 

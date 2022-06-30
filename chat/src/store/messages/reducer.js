@@ -50,10 +50,11 @@ const messagesReducer = (state = initialSate, action) => {
                 ...payload,
             }
         case SEND_MESSAGE:
-            console.log(state)
+            const { roomID, message } = payload
+            const messages = [...state[roomID], message]
             return {
                 ...state,
-                ...payload,
+                [roomID]: messages,
             }
         default:
             return state
